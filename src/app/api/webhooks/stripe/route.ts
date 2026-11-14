@@ -43,7 +43,7 @@ export async function POST(request: Request) {
               paymentStatus: 'PAID',
               stripePaymentId: paymentId,
               paidAt: now,
-              history: [...history, { status: 'ENROLLED', at: now.toISOString(), by: 'stripe', note: 'Payment received' }],
+              history: [...(history as any[]), { status: 'ENROLLED', at: now.toISOString(), by: 'stripe', note: 'Payment received' }],
             },
           });
           await tx.nvAcademyPayment.upsert({
