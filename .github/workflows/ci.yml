@@ -1,0 +1,47 @@
+name: ci
+
+on:
+  push:
+    branches: [main, production]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: nevie
+          POSTGRES_PASSWORD: nevie
+          POSTGRES_DB: nevie
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U nevie -d nevie"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgresql://nevie:nevie@127.0.0.1:5432/nevie
+      BETTER_AUTH_SECRET: ci-secret-must-be-at-least-32-chars-long
+      BETTER_AUTH_URL: http://127.0.0.1:3100
+      NEXT_PUBLIC_SITE_URL: http://127.0.0.1:3100
+      LEGAL_CONTACT_EMAIL: contact@nevie-global.com
+      ADMIN_EMAIL: admin@nevie.global
+      ADMIN_PASSWORD: ChangeThisAdmin12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx prisma db push
+      - run: npm run db:seed
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+      - run: npm audit --audit-level=high
+        continue-on-error: true

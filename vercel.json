@@ -1,0 +1,16 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "git": {
+    "deploymentEnabled": false
+  },
+  "github": {
+    "enabled": false
+  },
+  "redirects": [
+    {
+      "source": "/:path*",
+      "destination": "https://web-production-4652eb.up.railway.app/:path*",
+      "permanent": true
+    }
+  ]
+}

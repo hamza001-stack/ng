@@ -1,0 +1,348 @@
+
+{
+  "PreRegisterForm": {
+  "programme": "Programme",
+  "chooseProgramme": "Choose a programme…",
+  "startDate": "Preferred start date (optional)",
+  "noPreference": "No preference",
+  "seatsLeft": "seats left",
+  "waitingList": "waiting list",
+  "fullName": "Full name",
+  "email": "Email",
+  "phone": "Phone (optional)",
+  "experience": "Your experience",
+  "experienceOptions": {
+    "preferNot": "Prefer not to say",
+    "beginner": "Complete beginner",
+    "some": "Some experience",
+    "working": "Working with it already"
+  },
+  "goal": "What do you want to achieve? (optional)",
+  "consent": "I agree that NEVIE-GLOBAL UK may store my details and email me about this programme, start dates and my place on the waiting list. This is not a purchase and I can ask to be removed at any time.",
+  "sending": "Sending…",
+  "submit": "Join the waiting list",
+  "errors": {
+    "chooseProgramme": "Please choose a programme.",
+    "name": "Please enter your name.",
+    "email": "Enter a valid email.",
+    "consent": "Please tick the consent box to continue.",
+    "submit": "Something went wrong. Please try again."
+  },
+  "success": {
+    "title": "You're on the waiting list",
+    "place": "place",
+    "reference": "Reference",
+    "description": "We have emailed you a confirmation. Nothing to pay today.",
+    "browse": "Browse programmes",
+    "back": "Back to Academy"
+  }
+},
+  "Navigation": {
+    "contact": "Let's talk",
+    "marketplace": "Marketplace",
+    "academy": "Academy",
+    "shop": "Shop collection",
+    "skip": "Skip to content"
+  },
+  "Language": {
+    "switch": "Switch language",
+    "en": "English",
+    "fr": "French"
+  },
+  "Enrol": {
+    "programme": "Programme",
+    "choose": "Choose a programme…",
+    "startDate": "Start date",
+    "chooseDate": "Choose a start date…",
+    "noDates": "No dates yet. Pre-register instead",
+    "seatsLeft": "seats left",
+    "full": "Full, waiting list",
+    "joinList": "Join the waiting list",
+    "joinListTail": "and we will tell you when dates open.",
+    "name": "Full name",
+    "email": "Email",
+    "phone": "Phone (optional)",
+    "goal": "Why do you want to join? (optional)",
+    "consent": "I agree that NEVIE-GLOBAL UK may store my details and email me about this programme, start dates and my place on the waiting list. This is not a purchase and I can ask to be removed at any time.",
+    "submit": "Request my place",
+    "sending": "Sending…",
+    "errProgramme": "Please choose a programme.",
+    "errDate": "Please choose a start date.",
+    "errName": "Please enter your name.",
+    "errEmail": "Enter a valid email.",
+    "errConsent": "Please tick the consent box to continue.",
+    "errGeneric": "Something went wrong. Please try again.",
+    "doneTitle": "Request received",
+    "reference": "Reference",
+    "doneBody": "We emailed you a confirmation. Keep this reference to track your application. If approved, you will receive a secure payment link by email.",
+    "track": "Track my application",
+    "back": "Back to Academy"
+  },
+  "Status": {
+    "reference": "Reference",
+    "email": "Email you applied with",
+    "check": "Check status",
+    "checking": "Checking…",
+    "noApp": "No application yet?",
+    "request": "Request a place",
+    "updated": "Last updated",
+    "errGeneric": "Could not check status."
+  },
+  "Academy": {
+    "title": "NEVIE Academy",
+    "hero": "Master the technologies shaping tomorrow",
+    "sub": "Live online programmes in AI, software and automation. Expert-led cohorts, real-world projects.",
+    "viewAll": "View all programmes",
+    "startDates": "See start dates",
+    "pricing": "Pricing",
+    "schedule": "Schedule",
+    "enrol": "Request a place",
+    "preRegister": "Join waiting list",
+    "learnMore": "Learn more",
+    "seatsLeft": "seats left",
+    "full": "Full",
+    "free": "Free intro",
+    "levels": "All levels",
+    "perPerson": "per person",
+    "weeks": "weeks",
+    "hours": "hours",
+    "lessons": "lessons",
+    "startingSoon": "Starting soon",
+    "noSessions": "No upcoming dates. Join the waiting list.",
+    "statusTitle": "Track your application",
+    "statusSub": "Enter your reference and email to check your enrolment status.",
+    "preRegTitle": "Join the waiting list",
+    "preRegSub": "No commitment. We will email you when places open.",
+    "enrolTitle": "Request your place",
+    "enrolSub": "Choose a programme and start date. Our team will review your request within 2 working days.",
+    "pricingTitle": "Simple, transparent pricing",
+    "pricingSub": "One price per programme. No hidden fees.",
+    "scheduleTitle": "Upcoming start dates",
+    "scheduleSub": "Live online cohorts. All times UK (GMT/BST)."
+  },
+  "Courses": {
+    "ai": {
+      "title": "Practical AI for business",
+      "description": "Use AI at work with confidence and launch a first pilot.",
+      "shortDescription": "Learn where AI saves time and money, write effective prompts and plan a responsible first AI pilot.",
+      "level": "Beginner",
+      "promise": "Use AI at work with confidence and launch a first pilot.",
+      "outcomes": [
+        "Identify where AI can save time and money",
+        "Write effective prompts",
+        "Evaluate AI tools for cost, risk and privacy",
+        "Plan your first AI pilot"
+      ],
+      "syllabus": [
+        {
+          "title": "Understanding AI",
+          "description": "What modern AI can and cannot do."
+        },
+        {
+          "title": "Finding opportunities",
+          "description": "Identify valuable AI opportunities in your business."
+        },
+        {
+          "title": "Effective prompting",
+          "description": "Create reliable prompts using context and examples."
+        },
+        {
+          "title": "Choosing tools",
+          "description": "Compare AI tools by quality, cost and privacy."
+        }
+      ],
+      "format": "Live online"
+    },
+    "web": {
+      "title": "Full-stack web development",
+      "description": "Build and launch a real web application from scratch.",
+      "shortDescription": "Build and deploy web applications using HTML, CSS, JavaScript, Node.js and databases.",
+      "level": "Intermediate",
+      "promise": "Build and launch a real web application.",
+      "outcomes": [
+        "Build responsive websites",
+        "Develop frontend applications",
+        "Create backend APIs",
+        "Connect applications to databases",
+        "Deploy a complete web application"
+      ],
+      "syllabus": [
+        {
+          "title": "HTML and CSS",
+          "description": "Build structured and responsive websites."
+        },
+        {
+          "title": "JavaScript",
+          "description": "Learn programming fundamentals and interactive interfaces."
+        },
+        {
+          "title": "Backend development",
+          "description": "Build server-side applications using Node.js."
+        },
+        {
+          "title": "Databases",
+          "description": "Store and retrieve application data."
+        },
+        {
+          "title": "Deployment",
+          "description": "Launch your application online."
+        }
+      ],
+      "format": "Live online"
+    },
+    "automation": {
+      "title": "Automation foundations",
+      "description": "Automate repetitive work without heavy coding.",
+      "shortDescription": "Map workflows, connect applications and automate repetitive business tasks.",
+      "level": "Beginner",
+      "promise": "Automate repetitive work without heavy coding.",
+      "outcomes": [
+        "Identify repetitive workflows",
+        "Design automation processes",
+        "Connect applications and services",
+        "Handle errors and failures",
+        "Build practical automations"
+      ],
+      "syllabus": [
+        {
+          "title": "Understanding workflows",
+          "description": "Identify repetitive tasks that can be automated."
+        },
+        {
+          "title": "Automation tools",
+          "description": "Explore no-code and low-code automation platforms."
+        },
+        {
+          "title": "Connecting applications",
+          "description": "Connect services and automate data movement."
+        },
+        {
+          "title": "Testing and reliability",
+          "description": "Monitor workflows and handle failures."
+        }
+      ],
+      "format": "Live online"
+    }
+  },
+  "Home": {
+    "pathTitle": "YOUR LEARNING PATH",
+    "liveClasses": "Live classes · real projects · clear start dates",
+    "freePayment": "No payment today",
+    "from": "From",
+    "beginnerFriendly": "Beginner friendly",
+    "certificate": "Certificate path",
+    "freeRegistration": "Free to pre-register",
+    "programmeCount": "programmes",
+    "liveLessons": "live lessons",
+    "weeksPerProgramme": "weeks per programme",
+    "oneOffPrice": "one-off price",
+    "chooseTitle": "Choose your programme",
+    "chooseDescription": "Pick the skill you want to learn.",
+    "cardDescription": "Each card shows what you will achieve, how long it takes, when it starts and what it costs.",
+    "length": "Length",
+    "nextStart": "Next start",
+    "lessons": "Lessons",
+    "format": "Format",
+    "oneOffPerLearner": "one-off, per learner",
+    "details": "Details",
+    "comparePrices": "Compare all prices",
+    "howTitle": "How it works",
+    "howSubtitle": "Three simple steps to get started.",
+    "step1Title": "Choose a programme",
+    "step1Description": "Compare the programmes and pick the one that fits your goal and level.",
+    "step2Title": "Pre-register for free",
+    "step2Description": "Fill in a short form and pick a start date. It takes about two minutes. No payment.",
+    "step3Title": "We confirm your place",
+    "step3Description": "Our team emails you to confirm your seat and payment details before the course starts.",
+    "benefitsTitle": "What you get",
+    "benefitsSubtitle": "Everything included in every programme.",
+    "liveTitle": "Live classes with a tutor",
+    "liveDescription": "Real-time sessions where you can ask questions, not just watch recordings.",
+    "projectTitle": "A project you finish",
+    "projectDescription": "Leave with a pilot plan, an automation or a deployed web app.",
+    "feedbackTitle": "Feedback on your work",
+    "feedbackDescription": "Your tutor reviews what you build and tells you what to improve.",
+    "datesTitle": "Fixed start dates",
+    "datesDescription": "Know exactly when you begin and how long it takes before you commit.",
+    "introTitle": "Free introductory lessons",
+    "introDescription": "Try the AI and Automation format before you decide.",
+    "certificateTitle": "Certificate path",
+    "certificateDescription": "Verified certificates with eligible assessed programmes.",
+    "pricesTitle": "Prices",
+    "pricesSubtitle": "One-off prices. No subscriptions.",
+    "pricesDescription": "You pay only after we confirm your place.",
+    "mostInDepth": "MOST IN-DEPTH",
+    "noPaymentToday": "one-off · no payment today",
+    "fullProgramme": "See full programme",
+    "scheduleTitle": "Start dates",
+    "scheduleSubtitle": "Find a date that suits you.",
+    "programme": "Programme",
+    "starts": "Starts",
+    "days": "Days",
+    "time": "Time",
+    "seats": "Seats",
+    "requestPlace": "Request a place",
+    "waitingList": "Join waiting list",
+    "progressTitle": "Progress with purpose",
+    "progressSubtitle": "Knowledge first. Recognition to follow.",
+    "progressDescription": "Start with free introductions. Verified certificates will be available with eligible assessed programmes at launch.",
+    "faqTitle": "Questions",
+    "faqSubtitle": "Before you register.",
+    "faq1": "Who are these programmes for?",
+    "faq2": "Do I pay when I pre-register?",
+    "faq3": "Is there a free introduction?",
+    "faq4": "Will I get a certificate?",
+    "faq5": "Can I change to another start date?",
+    "faq6": "How is my data used?",
+    "readyTitle": "Ready when you are",
+    "readySubtitle": "Start learning what moves you forward.",
+    "readyDescription": "Reserve your place for the next cohort. It is free and takes two minutes.",
+    "cta": "Pre-register free"
+  },
+  "Pricing": {
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "freeIntro": "Free intro lesson",
+    "weeks": "weeks",
+    "hours": "hrs",
+    "liveLessons": "live lessons",
+    "oneOff": "one-off",
+    "perLearner": "per learner",
+    "certificate": "Certificate with eligible assessed programmes",
+    "tutorFeedback": "Tutor feedback on your work",
+    "freeToday": "No payment today"
+  },
+  "Common": {
+    "currency": "GBP",
+    "retry": "Retry",
+    "error": "Something went wrong",
+    "loading": "Loading...",
+    "back": "Back",
+    "continue": "Continue",
+    "viewDetails": "View details",
+    "close": "Close"
+  },
+  "CoursesPage": {
+  "metaTitle": "Academy Courses — AI, Web Development & Automation",
+  "metaDescription": "Choose a programme to see what you will learn, the syllabus, price and start dates.",
+  "breadcrumb": "Courses",
+  "title": "Our Courses",
+  "subtitle": "Choose a programme to see what you will learn, the syllabus, price and start dates."
+},
+"PreRegistrationPage": {
+  "metaTitle": "Academy Pre-registration — Join the Waiting List",
+  "metaDescription": "Pre-register free for NEVIE Academy programmes. No payment today.",
+  "breadcrumb": "Pre-register",
+  "title": "Pre-register",
+  "subtitle": "Join the waiting list for your chosen programme. Free, with no payment today."
+},
+"Navigation": {
+  "ariaLabel": "Academy navigation",
+  "home": "Home",
+  "courses": "Courses",
+  "prices": "Prices",
+  "startDates": "Start dates",
+  "myApplication": "My application",
+  "preRegister": "Pre-register free"
+}
+}

@@ -1,0 +1,3 @@
+import {chromium} from '@playwright/test';
+const browser=await chromium.launch({channel:'chrome',headless:true});const page=await browser.newPage({viewport:{width:1440,height:1000}});const errors=[];page.on('pageerror',e=>errors.push(e.message));
+for(const route of ['/','/marketplace','/academy','/about','/services','/dashboard','/marketplace/knowledge-agent']){await page.goto('http://127.0.0.1:3100'+route,{waitUntil:'networkidle',timeout:60000});await page.evaluate(()=>document.fonts.ready);await page.screenshot({path:'qa/refined-'+(route==='/'?'home':route.slice(1).replaceAll('/','-'))+'.png',fullPage:true});console.log(route,await page.title(),await page.locator('h1').count());}console.log('ERRORS',errors);await browser.close();

@@ -1,0 +1,600 @@
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  CUSTOMER
+  STAFF
+  MANAGER
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  PAID
+  PACKED
+  SHIPPED
+  DELIVERED
+  FULFILLED
+  CANCELLED
+  REFUNDED
+  PARTIALLY_REFUNDED
+  FAILED
+}
+
+enum LeadStatus {
+  NEW
+  QUALIFIED
+  WON
+  LOST
+}
+
+model User {
+  id            String    @id
+  name          String
+  email         String    @unique
+  emailVerified Boolean
+  image         String?
+  role          Role      @default(CUSTOMER)
+  createdAt     DateTime
+  updatedAt     DateTime
+  sessions      Session[]
+  accounts      Account[]
+  carts         Cart[]
+  orders        Order[]
+  wishlist      WishlistItem[]
+  lessonProgress LessonProgress[]
+  leads         Lead[]
+  auditLogs     AuditLog[]
+  cookieConsent CookieConsent[]
+  notifications UserNotification[]
+  twoFactorEnabled Boolean?  @default(false)
+  suspended     Boolean     @default(false)
+  twoFactors    TwoFactor[]
+}
+
+model TwoFactor {
+  id                      String    @id
+  secret                  String
+  backupCodes             String
+  userId                  String
+  verified                Boolean?  @default(true)
+  failedVerificationCount Int?      @default(0)
+  lockedUntil             DateTime?
+  user                    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([secret])
+  @@index([userId])
+}
+
+model AppSetting {
+  key       String   @id
+  value     String
+  secret    Boolean  @default(false)
+  updatedBy String?
+  updatedAt DateTime @updatedAt
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime
+  updatedAt DateTime
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime
+  updatedAt             DateTime
+
+  @@index([userId])
+}
+
+model Verification {
+  id         String    @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime?
+  updatedAt  DateTime?
+
+  @@index([identifier])
+}
+
+model Category {
+  id        String    @id @default(cuid())
+  slug      String    @unique
+  name      String
+  products  Product[]
+}
+
+model Product {
+  id              String         @id
+  name            String
+  slug            String         @unique
+  description     String
+  categoryId      String
+  category        Category       @relation(fields: [categoryId], references: [id])
+  pricePence      Int
+  compareAtPence  Int?
+  currency        String         @default("GBP")
+  stock           Int            @default(0)
+  published       Boolean        @default(true)
+  tag             String?
+  features        String[]
+  stripePriceId   String?
+  imageUrl        String?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  cartItems       CartItem[]
+  orderItems      OrderItem[]
+  wishlist        WishlistItem[]
+  reviews         Review[]
+
+  @@index([categoryId])
+  @@index([published, slug])
+}
+
+model Review {
+  id         String   @id @default(cuid())
+  productId  String
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  author     String
+  rating     Int
+  text       String
+  verified   Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  @@index([productId])
+}
+
+model Cart {
+  id        String     @id @default(cuid())
+  userId    String?
+  user      User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  guestKey  String?    @unique
+  couponId  String?
+  coupon    Coupon?    @relation(fields: [couponId], references: [id])
+  items     CartItem[]
+  updatedAt DateTime   @updatedAt
+  createdAt DateTime   @default(now())
+
+  @@index([userId])
+}
+
+model CartItem {
+  id        String  @id @default(cuid())
+  cartId    String
+  cart      Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+
+  @@unique([cartId, productId])
+}
+
+model WishlistItem {
+  id        String  @id @default(cuid())
+  userId    String
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, productId])
+}
+
+model Coupon {
+  id        String   @id @default(cuid())
+  code      String   @unique
+  percent   Int
+  active    Boolean  @default(true)
+  expiresAt DateTime?
+  carts     Cart[]
+  orders    Order[]
+}
+
+model Order {
+  id               String      @id @default(cuid())
+  userId           String?
+  user             User?       @relation(fields: [userId], references: [id], onDelete: SetNull)
+  email            String
+  name             String?
+  phone            String?
+  line1            String?
+  line2            String?
+  city             String?
+  postcode         String?
+  country          String      @default("United Kingdom")
+  status           OrderStatus @default(PENDING)
+  subtotalPence    Int
+  vatPence         Int
+  shippingPence    Int
+  discountPence    Int         @default(0)
+  totalPence       Int
+  currency         String      @default("GBP")
+  stripeSessionId  String?     @unique
+  stripePaymentId  String?
+  couponId         String?
+  coupon           Coupon?     @relation(fields: [couponId], references: [id])
+  notes            String?
+  internalNotes    String?
+  items            OrderItem[]
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+
+  @@index([userId])
+  @@index([email])
+  @@index([status])
+}
+
+model OrderItem {
+  id          String  @id @default(cuid())
+  orderId     String
+  order       Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId   String
+  product     Product @relation(fields: [productId], references: [id])
+  name        String
+  quantity    Int
+  unitPence   Int
+
+  @@index([orderId])
+}
+
+model Lead {
+  id        String     @id @default(cuid())
+  userId    String?
+  user      User?      @relation(fields: [userId], references: [id], onDelete: SetNull)
+  name      String
+  email     String
+  company   String?
+  message   String
+  source    String
+  status    LeadStatus @default(NEW)
+  createdAt DateTime   @default(now())
+  notes     String?
+  details   Json?
+  fileKey   String?
+
+  @@index([email])
+  @@index([status])
+}
+
+model NewsletterSubscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  consent   Boolean
+  createdAt DateTime @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  action    String
+  entity    String
+  entityId  String?
+  ip        String?
+  meta      Json?
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([createdAt])
+}
+
+model UserNotification {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  body      String
+  href      String?
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([userId, createdAt])
+}
+
+model CookieConsent {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  choice    String
+  createdAt DateTime @default(now())
+}
+
+model LessonProgress {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  courseId  String
+  lessonIndex Int
+  createdAt DateTime @default(now())
+
+  @@unique([userId, courseId, lessonIndex])
+}
+
+model CmsArticle {
+  id          String   @id
+  title       String
+  category    String
+  description String
+  body        String
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+}
+
+model CmsCourse {
+  id          String      @id
+  title       String
+  category    String
+  level       String
+  duration    String
+  description String
+  published   Boolean     @default(true)
+  lessons     CmsLesson[]
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// HOW TO ADD A NEW TABLE
+// 1. Add a `model` below (or anywhere in this file).
+// 2. Commit + push. `npm run build` and `npm start` run scripts/db-sync.mjs,
+//    which runs `prisma db push` and creates the table in whatever database
+//    DATABASE_URL / DIRECT_URL points to (local Postgres, Railway, Supabase).
+// 3. Read/write it through `prisma.<modelName>` from src/server/*.
+// See docs/EXTENDING.md.
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// Admin-editable page content + SEO overrides. `key` = route slug
+/// (e.g. "pricing", "academy", "academy-courses"). `html` is sanitised on render.
+model NvSitePage {
+  key         String   @id
+  title       String?
+  description String?
+  html        String   @default("")
+  published   Boolean  @default(true)
+  updatedBy   String?
+  updatedAt   DateTime @updatedAt
+
+  @@map("nv_site_page")
+}
+
+/// Admin overrides for the engagement plans on /pricing. `id` matches the plan
+/// id in src/lib/editorial.ts (discover | build | evolve | enterprise).
+model NvPricingPlan {
+  id        String   @id
+  name      String
+  tagline   String
+  price     String
+  priceNote String
+  points    String[] @default([])
+  cta       String
+  featured  Boolean  @default(false)
+  updatedBy String?
+  updatedAt DateTime @updatedAt
+
+  @@map("nv_pricing_plan")
+}
+
+/// A paid live programme shown on /academy (courses, prices, detail pages).
+/// Edited in Admin → Academy → Programmes & pricing. `price` is whole pounds.
+model NvAcademyProgramme {
+  id            String            @id // url slug, e.g. "ai"
+  cat           String // category tab, e.g. "AI"
+  theme         String            @default("ai") // artwork: ai | code | auto
+  title         String
+  level         String
+  price         Int
+  intro         Boolean           @default(false) // has a free intro lesson
+  introCourseId String? // optional CmsCourse id for the free intro lesson
+  lessons       Int               @default(1)
+  hours         String
+  weeks         String
+  promise       String
+  blurb         String
+  outcomes      String[]          @default([])
+  syllabus      Json              @default("[]") // [{ "title": "...", "body": "..." }]
+  seoTitle      String? // optional override for the page <title>
+  seoDescription String? // optional override for the meta description
+  translations    Json?    // French programme content
+  sortOrder     Int               @default(0)
+  published     Boolean           @default(true)
+  sessions      NvAcademySession[]
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+
+  @@map("nv_academy_programme")
+}
+
+/// A start date / cohort of a programme. Edited in Admin → Academy → Sessions & dates.
+model NvAcademySession {
+  id          String           @id @default(cuid())
+  programmeId String
+  programme   NvAcademyProgramme @relation(fields: [programmeId], references: [id], onDelete: Cascade)
+  startsOn    DateTime
+  days        String
+  time        String
+  mode        String           @default("Live online")
+  seats       Int              @default(20)
+  taken       Int              @default(0)
+  published   Boolean          @default(true)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  @@index([programmeId, startsOn])
+
+  @@map("nv_academy_session")
+}
+
+/// Waiting-list sign-ups from /academy/pre-registration.
+/// courseId = NvAcademyProgramme id (kept as "courseId" for older rows).
+model NvAcademyPreRegistration {
+  id         String   @id @default(cuid())
+  ref        String?  @unique
+  name       String
+  email      String
+  phone      String?
+  courseId   String   @default("general")
+  sessionId  String?
+  experience String?
+  message    String? // "what do you want to achieve"
+  consent    Boolean  @default(false)
+  consentAt  DateTime? // when consent was given
+  consentText String? // exact wording the person agreed to
+  emailSentAt DateTime? // confirmation email delivered
+  status     String   @default("NEW")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([email, courseId])
+  @@index([createdAt])
+
+  @@map("nv_academy_pre_registration")
+}
+
+/// Phase 3: a person asking for a place on a specific programme/start date.
+/// Staff review it in Admin > Academy > Enrolments; approving takes a seat.
+model NvAcademyEnrolment {
+  id          String    @id @default(cuid())
+  ref         String    @unique
+  name        String
+  email       String
+  phone       String?
+  programmeId String
+  sessionId   String?
+  goal        String?
+  consent     Boolean   @default(false)
+  consentAt   DateTime?
+  consentText String?
+  status      String    @default("REQUESTED") // REQUESTED UNDER_REVIEW APPROVED WAITLISTED DECLINED ENROLLED CANCELLED
+  staffNote   String? // internal only, never shown to the applicant
+  decidedBy   String?
+  decidedAt   DateTime?
+  history     Json      @default("[]") // [{status, at, by, note?}]
+  // Payment (Stripe Checkout). Approval creates the link; the webhook marks it paid.
+  paymentStatus   String    @default("NONE") // NONE PENDING PAID FAILED REFUNDED
+  amountPence     Int?
+  currency        String    @default("gbp")
+  stripeSessionId String?   @unique
+  stripePaymentId String?
+  paymentIsTest   Boolean   @default(false)
+  paidAt          DateTime?
+  payments        NvAcademyPayment[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([status])
+  @@index([programmeId, status])
+  @@index([email])
+  @@index([paymentStatus])
+
+  @@map("nv_academy_enrolment")
+}
+
+/// One row per successful academy payment. Sums of this table feed the "Sales" card
+/// in Admin > Academy > Overview. `isTest` separates Stripe test-mode sales from live ones.
+model NvAcademyPayment {
+  id              String              @id @default(cuid())
+  enrolmentId     String?             // null for admin test charges
+  enrolment       NvAcademyEnrolment? @relation(fields: [enrolmentId], references: [id], onDelete: Cascade)
+  programmeId     String
+  amountPence     Int
+  currency        String             @default("gbp")
+  stripeSessionId String             @unique
+  stripePaymentId String?
+  isTest          Boolean            @default(false)
+  paidAt          DateTime           @default(now())
+  createdAt       DateTime           @default(now())
+
+  @@index([enrolmentId])
+  @@index([programmeId])
+  @@index([isTest, paidAt])
+
+  @@map("nv_academy_payment")
+}
+
+model CmsLesson {
+  id       String    @id @default(cuid())
+  courseId String
+  course   CmsCourse @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  title    String
+  body     String
+  index    Int
+
+  @@unique([courseId, index])
+}
+
+enum ProjectStatus {
+  BACKLOG
+  DOING
+  REVIEW
+  DONE
+}
+
+model CaseStudy {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  summary     String
+  body        String
+  coverUrl    String?
+  fileUrl     String?
+  client       String?
+  industry     String?
+  country      String?
+  services     String[] @default([])
+  technologies String[] @default([])
+  results      String[] @default([])
+  duration     String?
+  year         Int?
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model DeliveryProject {
+  id           String        @id @default(cuid())
+  title        String
+  client       String
+  summary      String
+  status       ProjectStatus @default(BACKLOG)
+  fileUrl      String?
+  slug         String?       @unique
+  isPublic     Boolean       @default(false)
+  phase        String        @default("PLANNING")
+  progress     Int?
+  category     String?
+  goal         String?
+  technologies String[]      @default([])
+  features     String[]      @default([])
+  coverUrl     String?
+  teamSize     Int?
+  eta          DateTime?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}

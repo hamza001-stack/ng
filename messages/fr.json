@@ -1,0 +1,300 @@
+
+{
+  "PreRegisterForm": {
+  "programme": "Formation",
+  "chooseProgramme": "Choisissez une formation…",
+  "startDate": "Date de début souhaitée (facultatif)",
+  "noPreference": "Aucune préférence",
+  "seatsLeft": "places restantes",
+  "waitingList": "liste d'attente",
+  "fullName": "Nom complet",
+  "email": "Adresse e-mail",
+  "phone": "Téléphone (facultatif)",
+  "experience": "Votre expérience",
+  "experienceOptions": {
+    "preferNot": "Je préfère ne pas répondre",
+    "beginner": "Grand débutant",
+    "some": "Quelques connaissances",
+    "working": "J'utilise déjà ces outils"
+  },
+  "goal": "Que souhaitez-vous accomplir ? (facultatif)",
+  "consent": "J'accepte que NEVIE-GLOBAL UK conserve mes coordonnées et m'envoie des e-mails concernant cette formation, les dates de début et ma place sur la liste d'attente. Il ne s'agit pas d'un achat et je peux demander à être retiré de la liste à tout moment.",
+  "sending": "Envoi en cours…",
+  "submit": "Rejoindre la liste d'attente",
+  "errors": {
+    "chooseProgramme": "Veuillez choisir une formation.",
+    "name": "Veuillez saisir votre nom.",
+    "email": "Veuillez saisir une adresse e-mail valide.",
+    "consent": "Veuillez cocher la case de consentement pour continuer.",
+    "submit": "Une erreur est survenue. Veuillez réessayer."
+  },
+  "success": {
+    "title": "Vous êtes sur la liste d'attente",
+    "place": "position",
+    "reference": "Référence",
+    "description": "Nous vous avons envoyé un e-mail de confirmation. Aucun paiement n'est demandé aujourd'hui.",
+    "browse": "Voir les formations",
+    "back": "Retour à l'Académie"
+  }
+},
+  "Language": {
+    "switch": "Changer de langue",
+    "en": "Anglais",
+    "fr": "Français"
+  },
+  "Academy": {
+    "title": "NEVIE Academy",
+    "hero": "Apprenez l'IA, le développement web et l'automatisation — et réalisez un projet concret.",
+    "sub": "Des formations pratiques avec des formateurs en direct, des tarifs clairs et des dates de début fixes. Préinscrivez-vous gratuitement en deux minutes.",
+    "viewAll": "Voir les formations et les tarifs",
+    "startDates": "Dates de début",
+    "pricing": "Tarifs",
+    "schedule": "Calendrier",
+    "enrol": "S'inscrire",
+    "preRegister": "Préinscription gratuite",
+    "learnMore": "En savoir plus",
+    "seatsLeft": "Places disponibles",
+    "full": "Complet",
+    "free": "Gratuit",
+    "levels": "Niveaux",
+    "perPerson": "Par apprenant",
+    "weeks": "semaines",
+    "hours": "heures",
+    "lessons": "cours",
+    "startingSoon": "Début prochainement",
+    "noSessions": "Aucune session disponible pour le moment",
+    "statusTitle": "Statut des inscriptions",
+    "statusSub": "Consultez les disponibilités des formations.",
+    "preRegTitle": "Préinscription",
+    "preRegSub": "Réservez gratuitement votre place.",
+    "enrolTitle": "Inscription",
+    "enrolSub": "Finalisez votre inscription.",
+    "pricingTitle": "Tarifs des formations",
+    "pricingSub": "Consultez les tarifs de chaque formation."
+  },
+  "Courses": {
+    "ai": {
+      "title": "L'intelligence artificielle pratique pour les entreprises",
+      "description": "Utilisez l'IA dans votre travail et lancez votre premier projet pilote.",
+      "shortDescription": "Découvrez comment l'IA peut vous faire gagner du temps et de l'argent, rédigez des prompts efficaces et préparez un premier projet pilote responsable.",
+      "level": "Débutant",
+      "promise": "Utilisez l'IA au travail avec confiance et lancez un premier projet pilote.",
+      "outcomes": [
+        "Identifier les tâches pour lesquelles l'IA peut faire gagner du temps et de l'argent",
+        "Rédiger des prompts efficaces",
+        "Évaluer les outils d'IA selon leur coût, leurs risques et la confidentialité",
+        "Préparer votre premier projet pilote d'IA"
+      ],
+      "syllabus": [
+        {
+          "title": "Comprendre l'intelligence artificielle",
+          "description": "Ce que l'IA moderne peut et ne peut pas faire."
+        },
+        {
+          "title": "Identifier les opportunités",
+          "description": "Identifier les opportunités utiles de l'IA dans votre entreprise."
+        },
+        {
+          "title": "Rédiger des prompts efficaces",
+          "description": "Créer des prompts fiables grâce au contexte et aux exemples."
+        },
+        {
+          "title": "Choisir les bons outils",
+          "description": "Comparer les outils d'IA selon leur qualité, leur coût et la confidentialité."
+        }
+      ],
+      "format": "En ligne, en direct"
+    },
+    "web": {
+      "title": "Développement web full-stack",
+      "description": "Créez et lancez une véritable application web de zéro.",
+      "shortDescription": "Créez et déployez des applications web avec HTML, CSS, JavaScript, Node.js et des bases de données.",
+      "level": "Intermédiaire",
+      "promise": "Créez et lancez une véritable application web.",
+      "outcomes": [
+        "Créer des sites web adaptatifs",
+        "Développer des applications frontend",
+        "Créer des API backend",
+        "Connecter des applications à des bases de données",
+        "Déployer une application web complète"
+      ],
+      "syllabus": [
+        {
+          "title": "HTML et CSS",
+          "description": "Créer des sites web structurés et adaptatifs."
+        },
+        {
+          "title": "JavaScript",
+          "description": "Apprendre les bases de la programmation et des interfaces interactives."
+        },
+        {
+          "title": "Développement backend",
+          "description": "Créer des applications côté serveur avec Node.js."
+        },
+        {
+          "title": "Bases de données",
+          "description": "Stocker et récupérer les données d'une application."
+        },
+        {
+          "title": "Déploiement",
+          "description": "Mettre votre application en ligne."
+        }
+      ],
+      "format": "En ligne, en direct"
+    },
+    "automation": {
+      "title": "Les fondamentaux de l'automatisation",
+      "description": "Automatisez les tâches répétitives sans programmation complexe.",
+      "shortDescription": "Cartographiez les processus, connectez des applications et automatisez les tâches répétitives.",
+      "level": "Débutant",
+      "promise": "Automatisez les tâches répétitives sans programmation complexe.",
+      "outcomes": [
+        "Identifier les processus répétitifs",
+        "Concevoir des processus automatisés",
+        "Connecter des applications et des services",
+        "Gérer les erreurs et les interruptions",
+        "Créer des automatisations pratiques"
+      ],
+      "syllabus": [
+        {
+          "title": "Comprendre les processus",
+          "description": "Identifier les tâches répétitives pouvant être automatisées."
+        },
+        {
+          "title": "Outils d'automatisation",
+          "description": "Découvrir les plateformes d'automatisation no-code et low-code."
+        },
+        {
+          "title": "Connecter les applications",
+          "description": "Connecter des services et automatiser les transferts de données."
+        },
+        {
+          "title": "Tests et fiabilité",
+          "description": "Surveiller les processus et gérer les erreurs."
+        }
+      ],
+      "format": "En ligne, en direct"
+    }
+  },
+  "Home": {
+    "pathTitle": "VOTRE PARCOURS D'APPRENTISSAGE",
+    "liveClasses": "Cours en direct · projets concrets · dates de début fixes",
+    "certificate": "Parcours certifiant",
+    "freeRegistration": "Préinscription gratuite",
+    "programmeCount": "formations",
+    "liveLessons": "cours en direct",
+    "weeksPerProgramme": "semaines par formation",
+    "oneOffPrice": "paiement unique",
+    "chooseTitle": "Choisissez votre formation",
+    "chooseDescription": "Choisissez la compétence que vous souhaitez acquérir.",
+    "cardDescription": "Chaque fiche présente vos objectifs, la durée, la date de début et le tarif.",
+    "length": "Durée",
+    "nextStart": "Prochaine session",
+    "lessons": "Cours",
+    "format": "Format",
+    "oneOffPerLearner": "paiement unique, par apprenant",
+    "details": "Détails",
+    "comparePrices": "Comparer tous les tarifs",
+    "howTitle": "Comment ça marche",
+    "howSubtitle": "Trois étapes simples pour commencer.",
+    "step1Title": "Choisissez une formation",
+    "step1Description": "Comparez les formations et choisissez celle qui correspond à vos objectifs et à votre niveau.",
+    "step2Title": "Préinscrivez-vous gratuitement",
+    "step2Description": "Remplissez un court formulaire et choisissez une date de début. Cela prend environ deux minutes. Aucun paiement.",
+    "step3Title": "Nous confirmons votre place",
+    "step3Description": "Notre équipe vous envoie un e-mail pour confirmer votre place et vous communiquer les modalités de paiement avant le début de la formation.",
+    "benefitsTitle": "Ce qui est inclus",
+    "benefitsSubtitle": "Tout est inclus dans chaque formation.",
+    "liveTitle": "Cours en direct avec un formateur",
+    "liveDescription": "Des sessions en temps réel pendant lesquelles vous pouvez poser vos questions.",
+    "projectTitle": "Un projet concret à réaliser",
+    "projectDescription": "Terminez avec un plan pilote, une automatisation ou une application web déployée.",
+    "feedbackTitle": "Des retours sur votre travail",
+    "feedbackDescription": "Votre formateur examine vos réalisations et vous indique comment les améliorer.",
+    "datesTitle": "Dates de début fixes",
+    "datesDescription": "Connaissez votre date de début et la durée de la formation avant de vous engager.",
+    "introTitle": "Cours d'introduction gratuits",
+    "introDescription": "Découvrez le format des formations en IA et en automatisation avant de vous décider.",
+    "certificateTitle": "Parcours certifiant",
+    "certificateDescription": "Des certificats vérifiés seront proposés pour les formations évaluées éligibles.",
+    "pricesTitle": "Tarifs",
+    "pricesSubtitle": "Paiement unique. Aucun abonnement.",
+    "pricesDescription": "Vous ne payez qu'après confirmation de votre place.",
+    "mostInDepth": "LE PARCOURS LE PLUS APPROFONDI",
+    "noPaymentToday": "paiement unique · aucun paiement aujourd'hui",
+    "freePayment": "Aucun paiement aujourd'hui",
+    "from": "À partir de",
+    "beginnerFriendly": "Adapté aux débutants",
+    "fullProgramme": "Voir la formation complète",
+    "scheduleTitle": "Dates de début",
+    "scheduleSubtitle": "Trouvez une date qui vous convient.",
+    "programme": "Formation",
+    "starts": "Début",
+    "days": "Jours",
+    "time": "Horaire",
+    "seats": "Places",
+    "requestPlace": "Demander une place",
+    "waitingList": "Rejoindre la liste d'attente",
+    "progressTitle": "Apprendre avec un objectif",
+    "progressSubtitle": "Les connaissances d'abord. La reconnaissance ensuite.",
+    "progressDescription": "Commencez par des cours d'introduction gratuits. Des certificats vérifiés seront proposés au lancement pour les formations évaluées éligibles.",
+    "faqTitle": "Questions",
+    "faqSubtitle": "Avant votre inscription.",
+    "faq1": "À qui s'adressent ces formations ?",
+    "faq2": "Dois-je payer lors de ma préinscription ?",
+    "faq3": "Existe-t-il une introduction gratuite ?",
+    "faq4": "Vais-je recevoir un certificat ?",
+    "faq5": "Puis-je choisir une autre date de début ?",
+    "faq6": "Comment mes données sont-elles utilisées ?",
+    "readyTitle": "À vous de jouer",
+    "readySubtitle": "Apprenez ce qui vous permettra d'aller plus loin.",
+    "readyDescription": "Réservez votre place pour la prochaine session. C'est gratuit et cela prend deux minutes.",
+    "cta": "Préinscription gratuite"
+  },
+  "Pricing": {
+    "beginner": "Débutant",
+    "intermediate": "Intermédiaire",
+    "freeIntro": "Cours d'introduction gratuit",
+    "weeks": "semaines",
+    "hours": "heures",
+    "liveLessons": "cours en direct",
+    "oneOff": "paiement unique",
+    "perLearner": "par apprenant",
+    "certificate": "Certificat pour les formations évaluées éligibles",
+    "tutorFeedback": "Retours du formateur sur votre travail",
+    "freeToday": "Aucun paiement aujourd'hui"
+  },
+  "Common": {
+    "currency": "EUR",
+    "retry": "Réessayer",
+    "error": "Une erreur est survenue",
+    "loading": "Chargement...",
+    "back": "Retour",
+    "continue": "Continuer",
+    "viewDetails": "Voir les détails",
+    "close": "Fermer"
+  },
+  "CoursesPage": {
+    "metaTitle": "Formations — IA, développement web et automatisation",
+    "metaDescription": "Choisissez une formation pour découvrir les compétences enseignées, le programme, le tarif et les dates de début.",
+    "breadcrumb": "Formations",
+    "title": "Nos formations",
+    "subtitle": "Choisissez une formation pour découvrir les compétences enseignées, le programme, le tarif et les dates de début."
+  },
+  "PreRegistrationPage": {
+    "metaTitle": "Préinscription — Rejoignez la liste d'attente",
+    "metaDescription": "Préinscrivez-vous gratuitement aux formations NEVIE Academy. Aucun paiement aujourd'hui.",
+    "breadcrumb": "Préinscription",
+    "title": "Préinscription",
+    "subtitle": "Rejoignez la liste d'attente de la formation de votre choix. C'est gratuit, sans paiement aujourd'hui."
+  },
+  "Navigation": {
+  "ariaLabel": "Navigation de l'Académie",
+  "home": "Accueil",
+  "courses": "Formations",
+  "prices": "Tarifs",
+  "startDates": "Dates de début",
+  "myApplication": "Ma candidature",
+  "preRegister": "Préinscription gratuite"
+}
+}

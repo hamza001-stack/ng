@@ -1,0 +1,6 @@
+import type * as React from "react";
+import { cn } from "@/lib/utils";
+
+export interface InfiniteRibbonProps { repeat?: number; duration?: number; reverse?: boolean; rotation?: number; children: React.ReactNode; className?: string; }
+const styles = `@keyframes iconiq-infinite-ribbon{from{transform:translateX(0)}to{transform:translateX(-50%)}}@keyframes iconiq-infinite-ribbon-reverse{from{transform:translateX(-50%)}to{transform:translateX(0)}}@media(prefers-reduced-motion:reduce){.iconiq-infinite-ribbon-track{animation-duration:1ms!important;animation-iteration-count:1!important}}`;
+export function InfiniteRibbon({repeat=5,duration=20,reverse=false,rotation=0,children,className}:InfiniteRibbonProps){const count=Math.max(1,Math.floor(repeat));const animation=reverse?'iconiq-infinite-ribbon-reverse':'iconiq-infinite-ribbon';return <div className={cn('iconiq-infinite-ribbon',className)} style={{transform:`rotate(${rotation}deg)`}}><span className="sr-only">{children}</span><div aria-hidden="true" className="iconiq-infinite-ribbon-track" style={{animation:`${animation} ${Math.max(.1,duration)}s linear infinite`}}>{Array.from({length:count*2},(_,index)=><span key={index}>{children}</span>)}</div><style>{styles}</style></div>}

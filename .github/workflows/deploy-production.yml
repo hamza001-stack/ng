@@ -1,0 +1,20 @@
+name: deploy-production
+
+on:
+  push:
+    branches: [production]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm i -g @railway/cli
+      - name: Deploy to Railway production
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN_PRODUCTION }}
+        run: railway up --project ebaa80b0-d40f-4cd5-b701-f9663cf07e35 --service web --environment production --ci --yes --message "GitHub ${{ github.sha }}"

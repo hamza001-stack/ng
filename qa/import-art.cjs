@@ -1,0 +1,4 @@
+const sharp = require('sharp'); const fs = require('fs');
+const base='C:/Users/muham/.codex/generated_images/01a0a7db-deea-7141-aa78-2fcd65cb327a/';
+const assets={'knowledge-agent':'exec-0e9208a9-288f-40ca-974b-767902ee5e77.png','workflow-studio':'exec-99d1ccd1-0244-48ea-b417-d6b3da9edb9f.png','customer-hub':'exec-9b9b7381-b779-4af3-8294-31f60f7ce21a.png','cloud-console':'exec-3c7a115a-0b08-4fcc-b09b-b4c835c7bdd2.png','practical-ai':'exec-910dd4d8-1a05-4d36-8633-8d7e828d00c3.png'};
+(async()=>{fs.mkdirSync('public/products',{recursive:true}); for(const [id,file] of Object.entries(assets)){await sharp(base+file).resize({width:1200}).webp({quality:82}).toFile('public/products/'+id+'.webp');await sharp(base+file).resize({width:768}).webp({quality:84}).toFile('public/products/'+id+'-detail.webp');await sharp(base+file).resize({width:240}).webp({quality:80}).toFile('public/products/'+id+'-thumb.webp');} console.log('Optimised 15 local product assets');})();

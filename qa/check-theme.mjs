@@ -1,0 +1,12 @@
+import {chromium} from '@playwright/test';
+const browser=await chromium.launch({channel:'chrome',headless:true});
+const page=await browser.newPage({viewport:{width:1440,height:1000}});const errors=[];page.on('pageerror',e=>errors.push(e.message));
+const response=await page.goto('http://127.0.0.1:3100/',{waitUntil:'networkidle',timeout:60000});
+console.log('HTTP',response?.status());console.log('Logo square',await page.locator('.original-brand-logo').count());
+console.log('Theme control',await page.getByRole('button',{name:/Switch to dark mode/}).count());
+await page.getByRole('button',{name:/Switch to dark mode/}).click();
+console.log('Dark',await page.evaluate(()=>document.documentElement.dataset.theme));
+await page.screenshot({path:'qa/theme-dark.png'});
+await page.getByRole('button',{name:/Switch to light mode/}).click();
+console.log('Light',await page.evaluate(()=>document.documentElement.dataset.theme));
+console.log('Errors',errors);await browser.close();
