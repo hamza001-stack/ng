@@ -23,7 +23,7 @@ export function AcademySubNav() {
       <div className="nv-wrap">
         <nav className="nv-nav" aria-label={t('ariaLabel')}>
           {items.map((item) => {
-            const on = item.exact
+            const on = 'exact' in item && item.exact
               ? path === item.href
               : path === item.href || path.startsWith(item.href + '/');
 

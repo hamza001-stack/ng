@@ -586,6 +586,7 @@ export async function adminAcademy() {
         status: e.status,
         paymentStatus: e.paymentStatus,
         amountPence: e.amountPence ?? 0,
+        currency: e.currency ?? 'gbp',
         paymentIsTest: e.paymentIsTest,
         staffNote: e.staffNote ?? '',
         consentAt: e.consentAt
@@ -699,6 +700,7 @@ export type AdminProgramme = {
   title: string;
   level: string;
   price: number;
+  currency?: 'GBP' | 'EUR';
   intro: boolean;
   introCourseId: string;
   lessons: number;
@@ -728,6 +730,7 @@ export type AdminProgramme = {
 export type AdminEnrolment = {
   paymentStatus: string;
   amountPence: number;
+  currency?: string;
   paymentIsTest: boolean;
   id: string;
   ref: string;
