@@ -1,3 +1,4 @@
+import type { Prisma } from '@prisma/client';
 import { prisma } from '@/server/db';
 import { getStripe, stripeWebhookSecret } from '@/server/stripe';
 import { log } from '@/server/logger';
@@ -33,7 +34,9 @@ export async function POST(request: Request) {
       const row = await prisma.nvAcademyEnrolment.findUnique({ where: { id: enrolmentId } });
       if (row && row.paymentStatus !== 'PAID' && session.payment_status === 'paid') {
         const now = new Date();
-        const history = Array.isArray(row.history) ? (row.history as unknown[]) : [];
+        const history: Prisma.InputJsonValue[] = Array.isArray(row.history)
+          ? (row.history as Prisma.InputJsonValue[])
+          : [];
         await prisma.$transaction(async (tx) => {
           // Seat was already taken at approval; ENROLLED also holds a seat, so no double count.
           await tx.nvAcademyEnrolment.update({
@@ -43,7 +46,10 @@ export async function POST(request: Request) {
               paymentStatus: 'PAID',
               stripePaymentId: paymentId,
               paidAt: now,
-              history: [...(history as any[]), { status: 'ENROLLED', at: now.toISOString(), by: 'stripe', note: 'Payment received' }],
+              history: [
+                ...history,
+                { status: 'ENROLLED', at: now.toISOString(), by: 'stripe', note: 'Payment received' },
+              ],
             },
           });
           await tx.nvAcademyPayment.upsert({
