@@ -1,5 +1,5 @@
 
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 import { SitePageHtml } from '@/components/site-page-html';
 import { AcademyShell } from '@/features/academy/shell';
 import { PageHero } from '@/features/academy/ui';
@@ -28,7 +28,8 @@ export default async function PreRegistrationPage({
   searchParams: Promise<{ programme?: string; session?: string }>;
 }) {
   const { programme, session } = await searchParams;
-  const programmes = await getProgrammes();
+  const locale = (await getLocale()) === 'fr' ? 'fr' : 'en';
+  const programmes = await getProgrammes(locale);
   const t = await getTranslations('PreRegistrationPage');
 
   return (

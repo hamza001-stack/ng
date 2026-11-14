@@ -1,3 +1,4 @@
+import { getLocale } from 'next-intl/server';
 import { SitePageHtml } from '@/components/site-page-html';
 import { AcademyShell } from '@/features/academy/shell';
 import { PageHero, ScheduleTable } from '@/features/academy/ui';
@@ -18,7 +19,8 @@ export async function generateMetadata() {
 }
 
 export default async function SchedulePage() {
-  const programmes = await getProgrammes();
+  const locale = (await getLocale()) === 'fr' ? 'fr' : 'en';
+  const programmes = await getProgrammes(locale);
   return (
     <AcademyShell>
       <PageHero crumb="Start dates" title="Start dates" sub="Upcoming sessions across all programmes." />

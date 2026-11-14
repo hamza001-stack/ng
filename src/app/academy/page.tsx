@@ -1,6 +1,6 @@
 
 import Link from 'next/link';
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 
 import { SitePageHtml } from '@/components/site-page-html';
 import { AcademyShell } from '@/features/academy/shell';
@@ -57,11 +57,14 @@ export default async function AcademyHome() {
   const t = await getTranslations('Home');
   const a = await getTranslations('Academy');
 
-  const programmes = await getProgrammes();
+  const locale = (await getLocale()) === 'fr' ? 'fr' : 'en';
+  const programmes = await getProgrammes(locale);
 
   const min = programmes.length
     ? Math.min(...programmes.map((p) => p.price))
     : 0;
+
+  const currency = programmes[0]?.currency ?? (locale === 'fr' ? 'EUR' : 'GBP');
 
   const lessons = programmes.reduce((n, p) => n + p.lessons, 0);
 
@@ -95,7 +98,7 @@ export default async function AcademyHome() {
             <div className="nv-trust">
               <span>{t('freePayment')}</span>
               <span>
-                {t('from')} {money(min)}
+                {t('from')} {money(min, currency)}
               </span>
               <span>{t('beginnerFriendly')}</span>
             </div>
@@ -126,7 +129,7 @@ export default async function AcademyHome() {
           </div>
 
           <div>
-            <b>{money(min)}+</b>
+            <b>{money(min, currency)}+</b>
             <small>{t('oneOffPrice')}</small>
           </div>
         </div>

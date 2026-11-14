@@ -1,4 +1,4 @@
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 import { AcademyShell } from '@/features/academy/shell';
 import { EnrolForm } from '@/features/academy/enrol-form';
 import { PageHero } from '@/features/academy/ui';
@@ -17,7 +17,8 @@ export async function generateMetadata() {
 
 export default async function EnrolPage({ searchParams }: { searchParams: Promise<{ programme?: string; session?: string }> }) {
   const { programme, session } = await searchParams;
-  const programmes = await getProgrammes();
+  const locale = (await getLocale()) === 'fr' ? 'fr' : 'en';
+  const programmes = await getProgrammes(locale);
   return (
     <AcademyShell>
       <PageHero crumb="Enrol" title="Request a place" sub="Choose your programme and start date. We review every request and email you the decision. No payment today." />

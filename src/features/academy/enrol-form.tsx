@@ -86,7 +86,7 @@ export function EnrolForm({
         <label htmlFor="en-prog">{t('programme')}</label>
         <select id="en-prog" value={pid} onChange={(e) => { setPid(e.target.value); setSid(''); }} required>
           <option value="">{t('choose')}</option>
-          {programmes.map((p) => (<option key={p.id} value={p.id}>{p.title} — {money(p.price)}</option>))}
+          {programmes.map((p) => (<option key={p.id} value={p.id}>{p.title} — {money(p.price, p.currency)}</option>))}
         </select>
       </div>
       <div className="nv-field">
