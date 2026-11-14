@@ -1,0 +1,5 @@
+# Build command and publish directory are still taken from the Netlify UI.
+# BETTER_AUTH_URL is just the public site URL, so it legitimately appears in
+# sitemap.xml, robots.txt and rss.xml. Omit only this key from secrets scanning.
+[build.environment]
+  SECRETS_SCAN_OMIT_KEYS = "BETTER_AUTH_URL"
