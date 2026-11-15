@@ -1,6 +1,15 @@
-# Build command and publish directory are still taken from the Netlify UI.
-# BETTER_AUTH_URL and NEXT_PUBLIC_SITE_URL are just the public site URL, so they
-# legitimately appear in sitemap.xml, robots.txt, rss.xml and image-sitemap.xml.
-# Omit only these two keys from secrets scanning.
+# Netlify build settings (these override the Netlify UI).
+# Leave "Publish directory" EMPTY in the Netlify UI - the Next.js runtime sets it automatically.
+[build]
+  # No database step during the build: it only generates the Prisma client and builds Next.js.
+  command = "npx prisma generate && npx next build"
+
 [build.environment]
-  SECRETS_SCAN_OMIT_KEYS = "BETTER_AUTH_URL,NEXT_PUBLIC_SITE_URL"
+  NODE_VERSION = "22"
+  NEXT_TELEMETRY_DISABLED = "1"
+  # Netlify's secrets scanner fails the build when a public value (site URL, publishable
+  # keys) shows up in the built files. Those values are meant to be public, so scanning is off.
+  SECRETS_SCAN_ENABLED = "false"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"

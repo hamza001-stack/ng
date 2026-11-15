@@ -2,11 +2,11 @@ import { headers } from 'next/headers';
 import { z } from 'zod';
 import { prisma } from '@/server/db';
 import { getAuthSession } from '@/server/auth';
-import { jsonError, jsonOk } from '@/server/logger';
+import { jsonError, jsonOk, log } from '@/server/logger';
 import { clientKey, rateLimit } from '@/server/rate-limit';
 import { honeypotTriggered, originAllowed, verifyTurnstile } from '@/server/http-guard';
 import { enquiryReceivedHtml, escapeHtml, formNotifyEmails, formNotifyHtml, sendTransactionalEmail } from '@/server/mail';
-import { savePrivateUpload } from '@/server/uploads';
+import { savePrivateUpload, StorageUnavailableError } from '@/server/uploads';
 import { audit } from '@/server/audit';
 
 const optional = (max: number) => z.string().trim().max(max).optional().default('');
@@ -59,7 +59,13 @@ export async function POST(request: Request) {
     const file = form.get('file');
     fileKey = await savePrivateUpload(file instanceof File ? file : null, 'quotes', 10_000_000);
   } catch (error) {
-    return jsonError(error instanceof Error ? error.message : 'Upload failed.', 400);
+    if (error instanceof StorageUnavailableError) {
+      // Read-only host (e.g. Netlify): keep the enquiry, just without the attachment.
+      log('warn', 'quote_attachment_dropped', { detail: 'storage unavailable' });
+      fileKey = null;
+    } else {
+      return jsonError(error instanceof Error ? error.message : 'Upload failed.', 400);
+    }
   }
 
   const session = await getAuthSession(await headers());

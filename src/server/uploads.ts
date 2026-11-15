@@ -5,6 +5,25 @@ import { randomUUID } from 'crypto';
 
 const root = () => path.join(process.cwd(), 'public', 'uploads');
 
+/** Thrown when the host has a read-only / ephemeral filesystem (Netlify, Vercel, other serverless hosts). */
+export class StorageUnavailableError extends Error {
+  constructor() {
+    super(
+      'File uploads are not available on this host (read-only filesystem). Use an external URL instead, or leave the file field empty.',
+    );
+    this.name = 'StorageUnavailableError';
+  }
+}
+
+async function writeSafely(dir: string, name: string, data: Buffer) {
+  try {
+    await mkdir(dir, { recursive: true });
+    await writeFile(path.join(dir, name), data);
+  } catch {
+    throw new StorageUnavailableError();
+  }
+}
+
 const imageTypes = new Set(['image/jpeg', 'image/png', 'image/webp']);
 const fileTypes = new Set([
   ...imageTypes,
@@ -34,9 +53,8 @@ export async function saveUpload(
   const allowed = options.imagesOnly ? imageTypes : fileTypes;
   if (!allowed.has(file.type)) throw new Error('This file type is not allowed.');
   const dir = path.join(root(), folder);
-  await mkdir(dir, { recursive: true });
   const name = `${randomUUID()}${extFor(file.type, path.extname(file.name) || '.bin')}`;
-  await writeFile(path.join(dir, name), Buffer.from(await file.arrayBuffer()));
+  await writeSafely(dir, name, Buffer.from(await file.arrayBuffer()));
   return `/uploads/${folder}/${name}`;
 }
 
@@ -47,9 +65,8 @@ export async function savePrivateUpload(file: File | null, folder: string, maxBy
   if (file.size > maxBytes) throw new Error('File is too large.');
   if (!fileTypes.has(file.type)) throw new Error('This file type is not allowed.');
   const dir = path.join(privateRoot(), folder);
-  await mkdir(dir, { recursive: true });
   const name = `${randomUUID()}${extFor(file.type, '.bin')}`;
-  await writeFile(path.join(dir, name), Buffer.from(await file.arrayBuffer()));
+  await writeSafely(dir, name, Buffer.from(await file.arrayBuffer()));
   return `${folder}/${name}`;
 }
 
@@ -60,15 +77,19 @@ export async function saveProductImages(id: string, file: File | null) {
   const sharp = (await import('sharp')).default;
   const buffer = Buffer.from(await file.arrayBuffer());
   const dir = path.join(process.cwd(), 'public', 'products');
-  await mkdir(dir, { recursive: true });
-  const image = sharp(buffer);
-  await image.clone().webp({ quality: 82 }).toFile(path.join(dir, `${id}.webp`));
-  await image.clone().webp({ quality: 82 }).toFile(path.join(dir, `${id}-detail.webp`));
-  await image
-    .clone()
-    .resize(176, 176, { fit: 'cover' })
-    .webp({ quality: 80 })
-    .toFile(path.join(dir, `${id}-thumb.webp`));
+  try {
+    await mkdir(dir, { recursive: true });
+    const image = sharp(buffer);
+    await image.clone().webp({ quality: 82 }).toFile(path.join(dir, `${id}.webp`));
+    await image.clone().webp({ quality: 82 }).toFile(path.join(dir, `${id}-detail.webp`));
+    await image
+      .clone()
+      .resize(176, 176, { fit: 'cover' })
+      .webp({ quality: 80 })
+      .toFile(path.join(dir, `${id}-thumb.webp`));
+  } catch {
+    throw new StorageUnavailableError();
+  }
 }
 
 export function slugify(value: string) {
